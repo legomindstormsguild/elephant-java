@@ -1,2 +1,7 @@
 /Users/ukaszek/Documents/Projects/Lego/elephant/src/main/java/com/smtsoftware/legoguild/elephant/Elephant.java
+/Users/ukaszek/Documents/Projects/Lego/elephant/src/main/java/com/smtsoftware/legoguild/elephant/sdk/Delay.java
+/Users/ukaszek/Documents/Projects/Lego/elephant/src/main/java/com/smtsoftware/legoguild/elephant/sdk/Logger.java
+/Users/ukaszek/Documents/Projects/Lego/elephant/src/main/java/com/smtsoftware/legoguild/elephant/sdk/MediumMotorController.java
 /Users/ukaszek/Documents/Projects/Lego/elephant/src/main/java/com/smtsoftware/legoguild/elephant/App.java
+/Users/ukaszek/Documents/Projects/Lego/elephant/src/main/java/com/smtsoftware/legoguild/elephant/sdk/LargeMotorController.java
+/Users/ukaszek/Documents/Projects/Lego/elephant/src/main/java/com/smtsoftware/legoguild/elephant/sdk/TimeUtil.java

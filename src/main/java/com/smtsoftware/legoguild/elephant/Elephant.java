@@ -1,31 +1,18 @@
 package com.smtsoftware.legoguild.elephant;
 
-import ev3dev.hardware.Sound;
-import ev3dev.hardware.motor.EV3LargeRegulatedMotor;
-import ev3dev.hardware.motor.EV3MediumRegulatedMotor;
-import ev3dev.hardware.port.MotorPort;
-import ev3dev.hardware.port.SensorPort;
-import ev3dev.hardware.sensor.SensorModes;
-import ev3dev.hardware.sensor.ev3.EV3ColorSensor;
-import ev3dev.hardware.sensor.ev3.EV3TouchSensor;
-import lejos.utility.Delay;
+import com.smtsoftware.legoguild.elephant.sdk.Delay;
+import com.smtsoftware.legoguild.elephant.sdk.LargeMotorController;
+import com.smtsoftware.legoguild.elephant.sdk.Logger;
+import com.smtsoftware.legoguild.elephant.sdk.MediumMotorController;
+import org.ev3dev.hardware.ports.LegoPort;
 
-import java.io.File;
-
-/**
- * Created by ukaszek on 02/09/16.
- */
 public class Elephant {
 
     private static volatile Elephant sInstance = null;
 
-    private final EV3MediumRegulatedMotor mHeadMotor = new EV3MediumRegulatedMotor(MotorPort.D);
+    private LargeMotorController mLargeMotor;
 
-    private final EV3ColorSensor mHeadColorSensor = new EV3ColorSensor(SensorPort.S4);
-
-    private final EV3LargeRegulatedMotor mTrunkMotor = new EV3LargeRegulatedMotor(MotorPort.B);
-
-    private final EV3TouchSensor mTrunkTouchSensor = new EV3TouchSensor(SensorPort.S1);
+    private MediumMotorController mMediumMotor;
 
     public static Elephant getInstance() {
         if (sInstance == null) {
@@ -35,53 +22,74 @@ public class Elephant {
     }
 
     private Elephant() {
-
+        //no-op
     }
 
     public void start() {
+        bootUp();
         reset();
     }
 
+    public void stop() {
+        tearDown();
+    }
+
+    private void bootUp() {
+        Logger.print("Booting up...");
+
+        mLargeMotor = new LargeMotorController(LegoPort.OUTPUT_A);
+        mMediumMotor = new MediumMotorController(LegoPort.OUTPUT_D);
+
+        Logger.print("Elephant up and running.");
+    }
+
+    private void tearDown() {
+        Logger.print("Tearing down...");
+        mLargeMotor.stop();
+        mMediumMotor.stop();
+        Logger.print("Elephant shut down.");
+    }
+
     private void reset() {
-        // raise head until read brick on the head is detected
-        mHeadMotor.setSpeed(-10);
-        while (mHeadColorSensor.getColorID() != 5) {
-            mHeadMotor.forward();
-            Delay.msDelay(100);
-        }
-        mHeadMotor.stop();
+        Logger.print("Starting reset routine...");
 
-        // raise trunk until touch sensor detects touch
-        mTrunkMotor.setSpeed(-10);
-        while (mTrunkMotor.getPosition() != 5) {
-            mTrunkMotor.forward();
-            Delay.msDelay(100);
-        }
-        mTrunkMotor.stop();
+        mLargeMotor.setPercentageSpeed(100);
+        mLargeMotor.runForever();
+        Delay.sDelay(4);
+        mLargeMotor.stop();
+        Delay.sDelay(2);
 
-        // do elephant woo-woot
-        Sound.getInstance().playSample(new File("LEGO Sound Files/Animals/Elephant Call"), 100);
+        mLargeMotor.setPercentageSpeed(-100);
+        mLargeMotor.runForever();
+        Delay.sDelay(4);
+        mLargeMotor.stop();
+        Delay.sDelay(2);
 
-        Delay.msDelay(1000);
+        mLargeMotor.setPercentageSpeed(50);
+        mLargeMotor.runToPosition(5000);
+        Delay.sDelay(20);
+        mLargeMotor.stop();
+        Delay.sDelay(2);
 
-        new Thread(new Runnable() {
-            public void run() {
-                mHeadMotor.setSpeed(50);
-                mHeadMotor.rotate(770);
-                Delay.msDelay(100);
-                mHeadMotor.resetTachoCount();
-                mHeadMotor.stop();
-            }
-        }).start();
+        mLargeMotor.setPercentageSpeed(-50);
+        mLargeMotor.runToPosition(0);
+        Delay.sDelay(4);
+        mLargeMotor.stop();
+        Delay.sDelay(2);
 
-        new Thread(new Runnable() {
-            public void run() {
-                mTrunkMotor.setSpeed(50);
-                mTrunkMotor.rotate(770);
-                Delay.msDelay(100);
-                mTrunkMotor.resetTachoCount();
-                mTrunkMotor.stop();
-            }
-        }).start();
+        mLargeMotor.runForSeconds(5);
+        mLargeMotor.runForSeconds(5);
+        Delay.sDelay(10);
+        mLargeMotor.stop();
+
+        Delay.sDelay(5);
+        mLargeMotor.runForSeconds(10f);
+        Delay.sDelay(10);
+
+        mLargeMotor.setPercentageSpeed(10);
+        mLargeMotor.runForDegrees(180);
+        Delay.sDelay(60);
+
+        Logger.print("Reset routine completed.");
     }
 }

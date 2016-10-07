@@ -1,3 +1,8 @@
+com/smtsoftware/legoguild/elephant/sdk/Logger.class
+com/smtsoftware/legoguild/elephant/sdk/Delay.class
+com/smtsoftware/legoguild/elephant/sdk/TimeUtil.class
+com/smtsoftware/legoguild/elephant/sdk/MediumMotorController.class
 com/smtsoftware/legoguild/elephant/Elephant.class
-com/smtsoftware/legoguild/elephant/Elephant$2.class
-com/smtsoftware/legoguild/elephant/Elephant$1.class
+com/smtsoftware/legoguild/elephant/App$1.class
+com/smtsoftware/legoguild/elephant/App.class
+com/smtsoftware/legoguild/elephant/sdk/LargeMotorController.class

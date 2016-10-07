@@ -23,7 +23,7 @@
     <dependency>
       <groupId>com.github.jabrena</groupId>
       <artifactId>ev3dev-lang-java</artifactId>
-      <version>v0.2.0</version>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
