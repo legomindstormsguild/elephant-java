@@ -1,15 +1,11 @@
 package com.smtsoftware.legoguild.elephant.sdk;
 
-import org.ev3dev.hardware.motors.LargeMotor;
 import org.ev3dev.hardware.motors.MediumMotor;
 import org.ev3dev.hardware.motors.Motor;
 import org.ev3dev.hardware.ports.LegoPort;
 
 import java.io.IOException;
 
-/**
- * Created by ukaszek on 16/09/16.
- */
 public class MediumMotorController {
 
     private Motor mMotor;

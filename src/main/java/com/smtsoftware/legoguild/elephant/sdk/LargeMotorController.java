@@ -5,11 +5,7 @@ import org.ev3dev.hardware.motors.Motor;
 import org.ev3dev.hardware.ports.LegoPort;
 
 import java.io.IOException;
-import java.util.Date;
 
-/**
- * Created by ukaszek on 16/09/16.
- */
 public class LargeMotorController {
 
     private Motor mMotor;
